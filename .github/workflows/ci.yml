@@ -1,0 +1,48 @@
+name: Build frontend
+
+on:
+  push:
+    branches: [main]
+    tags: ['*']
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Zip dist
+        run: (cd dist && zip -qr ../dist.zip .)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist.zip
+          retention-days: 14
+
+  release:
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Zip dist
+        run: (cd dist && zip -qr ../dist.zip .)
+      - name: Create release with dist.zip attached
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist.zip
+          generate_release_notes: true
