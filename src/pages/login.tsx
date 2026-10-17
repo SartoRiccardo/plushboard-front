@@ -12,7 +12,7 @@ export function Login() {
   const [devBypass, setDevBypass] = useState(false)
 
   useEffect(() => {
-    fetch("/auth/mode")
+    fetch("/api/auth/mode")
       .then((r) => r.json())
       .then((m) => setDevBypass(Boolean(m.dev_bypass)))
       .catch(() => {})
@@ -26,7 +26,7 @@ export function Login() {
           <CardDescription>smallplushies.com ops</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col items-center gap-3">
-          <Button render={<a href="/auth/google" />} className="w-full">
+          <Button render={<a href="/api/auth/google" />} className="w-full">
             Sign in with Google
           </Button>
           {devBypass && (
@@ -46,7 +46,7 @@ export function Login() {
 // The button only renders when the backend says APP_ENV=local; the server
 // also refuses unless APP_ENV=local, so this can't work anywhere else.
 function devLogin() {
-  fetch("/auth/dev-login", { method: "POST" }).then((r) => {
+  fetch("/api/auth/dev-login", { method: "POST" }).then((r) => {
     if (r.ok) window.location.href = "/"
   })
 }

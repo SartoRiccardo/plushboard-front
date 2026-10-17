@@ -16,11 +16,6 @@ export default defineConfig({
       // /auth/login itself must stay on Vite (the React login screen + HMR);
       // only the real backend auth endpoints are proxied.
       '/api': 'http://localhost:8000',
-      '/auth/callback': 'http://localhost:8000',
-      '/auth/google': 'http://localhost:8000',
-      '/auth/logout': 'http://localhost:8000',
-      '/auth/mode': 'http://localhost:8000',
-      '/auth/dev-login': 'http://localhost:8000',
       '/mcp': 'http://localhost:8000',
     },
   },

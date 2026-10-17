@@ -73,7 +73,7 @@ function Nav() {
             <div className="mt-auto px-2 pb-4">
               <form
                 method="post"
-                action="/auth/logout"
+                action="/api/auth/logout"
                 onSubmit={() => {
                   setOpen(false)
                   navigate("/auth/login")
@@ -101,7 +101,7 @@ function Nav() {
 
         <form
           method="post"
-          action="/auth/logout"
+          action="/api/auth/logout"
           onSubmit={() => navigate("/auth/login")}
           className="hidden sm:block"
         >
